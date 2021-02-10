@@ -3,7 +3,7 @@ var tabledata = data;
 var tbody = d3.select("tbody");
 
 // Console.log the weather data from data.js
-console.log(tabledata);
+console.log(data);
 
 // data.forEach(function(sightings) {
 //     console.log(sightings);
