@@ -2,24 +2,19 @@ var tabledata = data;
 // Get a reference to the table body
 var tbody = d3.select("tbody");
 
-// Console.log the weather data from data.js
+// Console.log the UFO data from data.js
 console.log(tabledata);
 
-data.forEach((sightings) => {
-    var row = tbody.append("tr");
-    Object.entries(sightings).forEach(([key, value]) => {
-      var cell = row.append("td");
-      cell.text(value);
+function buildtable (data){
+  tbody.html("");
+  data.forEach((sightings) => {
+      var row = tbody.append("tr");
+      Object.entries(sightings).forEach(([key, value]) => {
+        var cell = row.append("td");
+        cell.text(value);
+      });
     });
-  });
-  // Select the button
-  var button = d3.select("#button");
-
-  // Select the form
-  var form = d3.select("#form");
-  // Create event handlers 
-button.on("click", runEnter);
-form.on("submit",runEnter);
+}
 
 // Complete the event handler function for the form
 function runEnter() {
@@ -33,10 +28,21 @@ function runEnter() {
   // Get the value property of the input element
   var inputValue = inputElement.property("value");
 
-  console.log(inputValue);
-  console.log(sightings);
-
-  var filteredData = sightings.filter(date => date.datetime === inputValue);
-
+  var filteredData = tabledata;
+  if (inputValue){
+    filteredData = filteredData.filter(date => date.datetime === inputValue);
+  }
+  buildtable(filteredData);
   console.log(filteredData);
-};
+}
+
+  // Select the button
+var button = d3.select("#filter-btn");
+
+  // Select the form
+var form = d3.select(".form-control");
+  // Create event handlers 
+button.on("click", runEnter);
+form.on("submit",runEnter);
+console.log(runEnter);
+buildtable(tabledata);
